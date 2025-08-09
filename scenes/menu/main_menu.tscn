@@ -1,13 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://c6inow2hlvjoc"]
+[gd_scene load_steps=17 format=3 uid="uid://c6inow2hlvjoc"]
 
 [ext_resource type="Script" uid="uid://duiiwpxjift3k" path="res://scenes/menu/main_menu.gd" id="1_hj162"]
 [ext_resource type="FontFile" uid="uid://7aadwx1g56cp" path="res://assets/font/Perfect DOS VGA 437 Win.ttf" id="1_nl8w3"]
 [ext_resource type="AudioStream" uid="uid://csnngagonusk6" path="res://assets/music/mainmenu_music.mp3" id="2_3rkf3"]
-[ext_resource type="Theme" path="res://assets/main_menu.tres" id="2_kiqgm"]
-[ext_resource type="Script" path="res://scripts/menu_particles.gd" id="3_247la"]
+[ext_resource type="Theme" uid="uid://b0jsoj5phie5g" path="res://assets/main_menu.tres" id="2_kiqgm"]
+[ext_resource type="Script" uid="uid://btgcjun3id0ip" path="res://scripts/menu_particles.gd" id="3_247la"]
 
 [sub_resource type="Gradient" id="Gradient_nl8w3"]
-colors = PackedColorArray(0, 0, 0, 1, 0.46519, 0.454647, 0.999998, 1)
+offsets = PackedFloat32Array(0, 0.983607)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_3rkf3"]
 gradient = SubResource("Gradient_nl8w3")
@@ -51,6 +52,66 @@ scale_max = 4.0
 scale_curve = SubResource("CurveTexture_247la")
 scale_over_velocity_curve = SubResource("CurveTexture_hj162")
 
+[sub_resource type="Animation" id="Animation_xn6kt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer:pitch_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.71]
+}
+
+[sub_resource type="Animation" id="Animation_hj162"]
+resource_name = "fade_music"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AudioStreamPlayer:volume_db")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 7.0, -20.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer:pitch_scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.99),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.71, 0.2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_isoef"]
+_data = {
+&"RESET": SubResource("Animation_xn6kt"),
+&"fade_music": SubResource("Animation_hj162")
+}
+
 [node name="MainMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -68,6 +129,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_247la")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="options" type="MarginContainer" parent="."]
 visible = false
@@ -162,14 +231,14 @@ layout_mode = 2
 
 [node name="VSeparator" type="VSeparator" parent="menu/VBoxContainer/HBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(162.865, 0)
 layout_mode = 2
 
 [node name="tagline" type="Label" parent="menu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.469494, 0.401435, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("1_nl8w3")
-text = "the game plays you...."
+text = "console that plays you.."
 
 [node name="HSeparator" type="HSeparator" parent="menu/VBoxContainer"]
 self_modulate = Color(1, 1, 1, 0)
@@ -238,6 +307,11 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_isoef")
+}
 
 [connection signal="pressed" from="options/VBoxContainer/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="menu/VBoxContainer/buttons/play_button" to="." method="_on_play_button_pressed"]
