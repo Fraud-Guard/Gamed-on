@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://c6inow2hlvjoc"]
+[gd_scene load_steps=28 format=3 uid="uid://c6inow2hlvjoc"]
 
 [ext_resource type="Script" uid="uid://duiiwpxjift3k" path="res://scenes/menu/main_menu.gd" id="1_hj162"]
 [ext_resource type="FontFile" uid="uid://7aadwx1g56cp" path="res://assets/font/Perfect DOS VGA 437 Win.ttf" id="1_nl8w3"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://btgcjun3id0ip" path="res://scripts/menu_particles.gd" id="3_247la"]
 [ext_resource type="Shader" uid="uid://cg5760yd8h34x" path="res://scenes/rooms/testingshader.gdshader" id="4_bbqo6"]
 [ext_resource type="Script" uid="uid://3w7xpq7vpswi" path="res://scenes/menu/audio.gd" id="4_isoef"]
+[ext_resource type="FontFile" uid="uid://4rdpt2vm5l0l" path="res://assets/font/PixelifySans-VariableFont_wght.ttf" id="10_1k4da"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ktf6p"]
 shader = ExtResource("2_vovv2")
@@ -207,6 +208,7 @@ mesh = SubResource("QuadMesh_by11x")
 [node name="GlitchSFX" type="AudioStreamPlayer2D" parent="CanvasLayer"]
 
 [node name="Panel" type="Panel" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -289,15 +291,75 @@ modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="back" type="Button" parent="options/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="options/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="back" type="Button" parent="options/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_kiqgm")
 text = "back"
+
+[node name="VSeparator" type="VSeparator" parent="options/VBoxContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(0, 7.545)
+layout_mode = 2
+
+[node name="controls" type="Button" parent="options/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_kiqgm")
+text = "controls"
 
 [node name="Control" type="Control" parent="."]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="controls" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.5
+offset_top = -58.5
+offset_right = 110.5
+offset_bottom = 58.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="controls"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="controls/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_1k4da")
+text = "Movement	                               WASD"
+
+[node name="Label2" type="Label" parent="controls/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_1k4da")
+text = "Interact                                      F"
+
+[node name="Label3" type="Label" parent="controls/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_1k4da")
+text = "?????                                         ?????"
+
+[node name="HSeparator" type="HSeparator" parent="controls/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="controls/VBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="controls/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_kiqgm")
+text = "Back"
 
 [node name="menu" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -425,7 +487,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_isoef")
 }
 
-[connection signal="pressed" from="options/VBoxContainer/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="options/VBoxContainer/HBoxContainer/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="options/VBoxContainer/HBoxContainer/controls" to="." method="_on_controls_pressed"]
+[connection signal="pressed" from="controls/VBoxContainer/Button" to="." method="_on_button_controls_pressed"]
 [connection signal="pressed" from="menu/VBoxContainer/buttons/play_button" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="menu/VBoxContainer/buttons/options_button" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="menu/VBoxContainer/buttons/Button" to="." method="_on_button_pressed"]

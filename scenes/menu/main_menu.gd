@@ -1,11 +1,10 @@
 extends Control
 @onready var menu: MarginContainer = $menu
 @onready var options: MarginContainer = $options
+@onready var controls: MarginContainer = $controls
 @onready var next_scene: String = "res://scenes/rooms/room_0.tscn"
 @onready var particles: GPUParticles2D = $menu_particles/GPUParticles2D
 @onready var anim: AnimationPlayer = $AnimationPlayer
-
-
 
 var isplaying = false
 # Called when the node enters the scene tree for the first time.
@@ -37,10 +36,6 @@ func _on_play_button_pressed() -> void:
 	anim.play("fade_music")
 	
 
-	
-	
-
-
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
 
@@ -52,3 +47,13 @@ func _on_button_pressed() -> void:
 	particles.explosiveness = 19
 	particles.emitting = false
 	anim.play("fade_music")
+
+
+func _on_button_controls_pressed() -> void:
+	controls.visible = false
+	options.visible = true
+
+
+func _on_controls_pressed() -> void:
+	controls.visible = true
+	options.visible = false
