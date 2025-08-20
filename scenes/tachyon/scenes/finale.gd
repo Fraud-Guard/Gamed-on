@@ -51,7 +51,9 @@ func _on_dialogue_end():
 	var transition = preload("res://transition_manager_finale.tscn").instantiate()
 	global.disable_glitch()
 	get_tree().root.add_child(transition)
+	await get_tree().create_timer(3).timeout 
 	transition.start_transition(global.new_scene_placement)
+	await get_tree().create_timer(2).timeout 
 	anim.play("jump_fade_out")
 	global.is_switching = true
 	
