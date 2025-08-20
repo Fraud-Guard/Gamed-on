@@ -811,6 +811,7 @@ stream = ExtResource("11_ssbn2")
 volume_db = 6.324
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer2/Panel2"]
+active = false
 libraries = {
 &"": SubResource("AnimationLibrary_ud4oe")
 }
