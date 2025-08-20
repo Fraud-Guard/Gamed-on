@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://b1ooj4l5vcc2n"]
+[gd_scene load_steps=15 format=3 uid="uid://b1ooj4l5vcc2n"]
 
 [ext_resource type="Script" uid="uid://cuq3v26blnyc2" path="res://scenes/rooms/interact_npc.gd" id="1_flcde"]
 [ext_resource type="Texture2D" uid="uid://gt1bbfeknlyv" path="res://assets/mom.png" id="2_nk83r"]
+[ext_resource type="Texture2D" uid="uid://cv2trofr7y58x" path="res://RPG_Exclamation_Mark_Animation.png" id="3_nk83r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t7lba"]
 atlas = ExtResource("2_nk83r")
@@ -35,6 +36,42 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_tq26g"]
 radius = 16.0312
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_tc4aa"]
+atlas = ExtResource("3_nk83r")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yh3e3"]
+atlas = ExtResource("3_nk83r")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_57y0g"]
+atlas = ExtResource("3_nk83r")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7vimj"]
+atlas = ExtResource("3_nk83r")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_60fcm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tc4aa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yh3e3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_57y0g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7vimj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_jfy6s"]
 radius = 14.0357
 
@@ -51,6 +88,12 @@ disable_mode = 1
 
 [node name="chatbox" type="CollisionShape2D" parent="Chatdetection"]
 shape = SubResource("CircleShape2D_tq26g")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Chatdetection/chatbox"]
+position = Vector2(0, -23)
+sprite_frames = SubResource("SpriteFrames_60fcm")
+autoplay = "default"
+frame_progress = 0.548271
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_jfy6s")
